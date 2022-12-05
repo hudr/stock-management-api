@@ -1,15 +1,18 @@
 {
   "name": "stock-management-api",
   "version": "0.0.1",
-  "main": "./src/index.js",
+  "main": "./src/server.js",
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js .",
     "build": "sucrase ./src -d ./dist --transforms imports",
-    "start": "node ./dist/src/index.js",
-    "dev": "nodemon --exec sucrase-node ./src/index.js"
+    "start": "node ./dist/src/server.js",
+    "dev": "nodemon --exec sucrase-node ./src/server.js"
+  },
+  "imports": {
+    "#routes": "./src/routes/index.js"
   },
   "husky": {
     "hooks": {
@@ -20,6 +23,7 @@
     "*.js": "npm run lint:fix"
   },
   "dependencies": {
+    "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2"

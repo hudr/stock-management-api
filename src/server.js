@@ -1,20 +1,18 @@
 import 'dotenv/config'
 import cors from 'cors'
+import bodyParser from 'body-parser'
 import express from 'express'
+import routes from '#routes'
+
 const app = express()
 
-// Permite acesso externo
 app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(routes)
 
-// Desativa o X-Powered-By: Express
 app.disable('x-powered-by')
 
-// Criamos uma rota raiz com o texto Hello World!
-app.get('/', (_req, res) => {
-  res.send({ message: 'Hello World!' })
-})
-
-// Passamos a porta onde o servidor ficará ouvindo
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Listening on port: ${process.env.PORT}`)
 })
