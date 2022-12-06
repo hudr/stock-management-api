@@ -1,4 +1,4 @@
-import express from 'express'
+const express = require('express')
 const routes = express.Router()
 
 // Aplication Routes
@@ -13,4 +13,4 @@ routes.get('/', function (_req, res) {
   })
 })
 
-export default routes
+module.exports = routes

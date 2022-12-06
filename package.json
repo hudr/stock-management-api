@@ -7,11 +7,11 @@
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js .",
-    "build": "sucrase ./src -d ./dist --transforms imports",
-    "start": "node ./dist/src/server.js",
-    "dev": "nodemon --exec sucrase-node ./src/server.js"
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
   },
   "imports": {
+    "#config/*": "./src/config/*.js",
     "#routes": "./src/routes/index.js"
   },
   "husky": {
@@ -26,7 +26,9 @@
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4"
   },
   "devDependencies": {
     "eslint": "^8.29.0",
@@ -35,7 +37,6 @@
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "nodemon": "^2.0.20",
-    "prettier": "^2.8.0",
-    "sucrase": "^3.29.0"
+    "prettier": "^2.8.0"
   }
 }

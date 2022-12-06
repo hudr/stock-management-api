@@ -1,4 +1,5 @@
-import express from 'express'
+const express = require('express')
+
 const usersRouter = express.Router()
 
 usersRouter.get('/', (req, res) => {
