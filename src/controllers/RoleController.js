@@ -2,7 +2,7 @@ const Role = require('#models/Role')
 const User = require('#models/User')
 
 module.exports = {
-  async index(req, res) {
+  async index(_req, res) {
     try {
       const roles = await Role.findAll()
 
