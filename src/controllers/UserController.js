@@ -24,6 +24,22 @@ module.exports = {
 
   async show(req, res) {
     try {
+      const user = await User.findByPk(req.id, {
+        attributes: { exclude: 'password' },
+      })
+
+      if (!user) {
+        return res.status(400).send({ error: 'usuário não encontrado' })
+      }
+
+      return res.status(200).send({ user })
+    } catch (err) {
+      return res.status(400).send({ error: 'erro ao carregar usuário' })
+    }
+  },
+
+  async showSpecificUser(req, res) {
+    try {
       const { userId } = req.params
 
       const user = await User.findByPk(userId, {

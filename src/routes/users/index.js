@@ -6,6 +6,9 @@ const usersRouter = express.Router()
 // Autentica usuário
 usersRouter.post('/auth', UserController.authenticate)
 
+// Carrega dados do próprio usuário
+usersRouter.get('/show', authMiddleware, UserController.show)
+
 // Cria usuário
 usersRouter.post('/', UserController.store)
 
@@ -16,7 +19,7 @@ usersRouter.delete('/:userId', authMiddleware, UserController.delete)
 usersRouter.get('/index', authMiddleware, UserController.index)
 
 // Lista usuário específico
-usersRouter.get('/:userId', authMiddleware, UserController.show)
+usersRouter.get('/:userId', authMiddleware, UserController.showSpecificUser)
 
 // Rota padrão apenas para demonstração
 usersRouter.get('/', (_req, res) => {
