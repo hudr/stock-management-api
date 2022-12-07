@@ -98,7 +98,9 @@ module.exports = {
         return res.status(400).send({ error: 'usuário não encontrado' })
       }
 
-      if (!(await compare(password, user.password))) {
+      const isCorrectPassword = await compare(password, user.password)
+
+      if (!isCorrectPassword) {
         return res.status(400).send({ error: 'falha na autenticação' })
       }
 
