@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
+    "sequelize:reset": "sequelize db:migrate:undo:all && sequelize db:drop && sequelize db:create && sequelize db:migrate",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js .",
     "start": "node ./src/server.js",
@@ -12,7 +13,10 @@
   },
   "imports": {
     "#config/*": "./src/config/*.js",
-    "#routes": "./src/routes/index.js"
+    "#routes": "./src/routes/index.js",
+    "#middlewares/*": "./src/middlewares/*.js",
+    "#models/*": "./src/models/*.js",
+    "#controllers/*": "./src/controllers/*.js"
   },
   "husky": {
     "hooks": {
@@ -23,12 +27,15 @@
     "*.js": "npm run lint:fix"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.8.0",
-    "pg-hstore": "^2.3.4"
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.26.0"
   },
   "devDependencies": {
     "eslint": "^8.29.0",
@@ -37,6 +44,7 @@
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "nodemon": "^2.0.20",
-    "prettier": "^2.8.0"
+    "prettier": "^2.8.0",
+    "sequelize-cli": "^6.5.2"
   }
 }
