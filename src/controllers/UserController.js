@@ -14,12 +14,29 @@ function generateToken(params = {}) {
 module.exports = {
   async index(_req, res) {
     try {
-      // Listagem de usuários e remove da response o campo password (mesmo criptografado)
       const users = await User.findAll({ attributes: { exclude: 'password' } })
 
       return res.status(200).send({ users })
     } catch (err) {
       return res.status(400).send({ error: 'erro ao carregar usuários' })
+    }
+  },
+
+  async show(req, res) {
+    try {
+      const { userId } = req.params
+
+      const user = await User.findByPk(userId, {
+        attributes: { exclude: 'password' },
+      })
+
+      if (!user) {
+        return res.status(400).send({ error: 'usuário não encontrado' })
+      }
+
+      return res.status(200).send({ user })
+    } catch (err) {
+      return res.status(400).send({ error: 'erro ao carregar usuário' })
     }
   },
 
@@ -46,6 +63,26 @@ module.exports = {
         .send({ user, token: generateToken({ id: user.id }) })
     } catch (err) {
       res.status(400).send({ error: 'erro ao criar usuário' })
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const { userId } = req.params
+
+      const user = await User.findByPk(userId, {
+        attributes: { exclude: 'password' },
+      })
+
+      if (!user) {
+        return res.status(400).send({ error: 'usuário não encontrado' })
+      }
+
+      await user.destroy()
+
+      return res.status(204).send()
+    } catch (err) {
+      return res.status(400).send({ error: 'erro ao carregar usuário' })
     }
   },
 
