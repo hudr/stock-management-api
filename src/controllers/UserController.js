@@ -25,6 +25,7 @@ module.exports = {
   async show(req, res) {
     try {
       const user = await User.findByPk(req.id, {
+        include: { association: 'roles', through: { attributes: [] } },
         attributes: { exclude: 'password' },
       })
 
@@ -108,6 +109,7 @@ module.exports = {
 
       const user = await User.findOne({
         where: { email },
+        include: { association: 'roles', through: { attributes: [] } },
       })
 
       if (!user) {
