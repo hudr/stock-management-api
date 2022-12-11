@@ -4,7 +4,6 @@ const { sign } = require('jsonwebtoken')
 const { isUserAdmin } = require('#utils')
 const authConfig = require('#config/auth')
 const User = require('#models/User')
-const Role = require('#models/Role')
 
 function generateToken(params = {}) {
   const { secret, expiresIn } = authConfig.jwt
