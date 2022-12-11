@@ -13,6 +13,7 @@
   },
   "imports": {
     "#config/*": "./src/config/*.js",
+    "#utils": "./src/utils/index.js",
     "#routes": "./src/routes/index.js",
     "#middlewares/*": "./src/middlewares/*.js",
     "#models/*": "./src/models/*.js",

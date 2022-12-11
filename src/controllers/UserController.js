@@ -1,8 +1,10 @@
 require('dotenv/config')
 const { hash, compare } = require('bcryptjs')
 const { sign } = require('jsonwebtoken')
+const { isUserAdmin } = require('#utils')
 const authConfig = require('#config/auth')
 const User = require('#models/User')
+const Role = require('#models/Role')
 
 function generateToken(params = {}) {
   const { secret, expiresIn } = authConfig.jwt
@@ -12,8 +14,19 @@ function generateToken(params = {}) {
 }
 
 module.exports = {
-  async index(_req, res) {
+  async index(req, res) {
     try {
+      const user = await User.findByPk(req.id, {
+        include: { association: 'roles', through: { attributes: [] } },
+        attributes: { exclude: 'password' },
+      })
+
+      const userRoles = user.roles.map((role) => role.name)
+
+      if (!isUserAdmin(userRoles)) {
+        return res.status(403).send({ error: 'acesso não autorizado' })
+      }
+
       const users = await User.findAll({ attributes: { exclude: 'password' } })
 
       return res.status(200).send({ users })
